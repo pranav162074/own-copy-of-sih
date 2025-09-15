@@ -70,10 +70,10 @@ export default function SiteLayout() {
             <NavItem to="/model-lab">Model Lab</NavItem>
             <NavItem to="/anomalies">Anomalies</NavItem>
             <NavItem to="/audit">Audit</NavItem>
-            <NavItem to="/about">About</NavItem>
             <NavItem to="/features">Features</NavItem>
             <NavItem to="/use-cases">Use Cases</NavItem>
             <NavItem to="/contact">Contact</NavItem>
+            <NavItem to="/about">About</NavItem>
           </nav>
           <div className="md:hidden">
             <MobileNav />
@@ -142,10 +142,10 @@ function MobileNav() {
             <NavLink onClick={() => setOpen(false)} to="/model-lab" className="px-3 py-2 rounded-md hover:bg-muted">Model Lab</NavLink>
             <NavLink onClick={() => setOpen(false)} to="/anomalies" className="px-3 py-2 rounded-md hover:bg-muted">Anomalies</NavLink>
             <NavLink onClick={() => setOpen(false)} to="/audit" className="px-3 py-2 rounded-md hover:bg-muted">Audit</NavLink>
-            <NavLink onClick={() => setOpen(false)} to="/about" className="px-3 py-2 rounded-md hover:bg-muted">About</NavLink>
             <NavLink onClick={() => setOpen(false)} to="/features" className="px-3 py-2 rounded-md hover:bg-muted">Features</NavLink>
             <NavLink onClick={() => setOpen(false)} to="/use-cases" className="px-3 py-2 rounded-md hover:bg-muted">Use Cases</NavLink>
             <NavLink onClick={() => setOpen(false)} to="/contact" className="px-3 py-2 rounded-md hover:bg-muted">Contact</NavLink>
+            <NavLink onClick={() => setOpen(false)} to="/about" className="px-3 py-2 rounded-md hover:bg-muted">About</NavLink>
           </nav>
         </div>
       )}
