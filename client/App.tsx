@@ -13,6 +13,11 @@ import About from "./pages/About";
 import Features from "./pages/Features";
 import UseCases from "./pages/UseCases";
 import Contact from "./pages/Contact";
+import Dashboard from "./pages/Dashboard";
+import Control from "./pages/Control";
+import ModelLab from "./pages/ModelLab";
+import Anomalies from "./pages/Anomalies";
+import Audit from "./pages/Audit";
 
 const queryClient = new QueryClient();
 
@@ -25,6 +30,11 @@ const App = () => (
         <Routes>
           <Route element={<SiteLayout />}>
             <Route path="/" element={<Index />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/control" element={<Control />} />
+            <Route path="/model-lab" element={<ModelLab />} />
+            <Route path="/anomalies" element={<Anomalies />} />
+            <Route path="/audit" element={<Audit />} />
             <Route path="/about" element={<About />} />
             <Route path="/features" element={<Features />} />
             <Route path="/use-cases" element={<UseCases />} />
