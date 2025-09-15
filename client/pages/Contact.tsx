@@ -46,7 +46,7 @@ export default function Contact() {
           <label htmlFor="message" className="text-sm font-medium">Message</label>
           <textarea id="message" name="message" rows={5} required className="w-full rounded-md border bg-background px-3 py-2 outline-none focus:ring-2 focus:ring-ring" />
         </div>
-        <button disabled={loading} className="inline-flex items-center justify-center rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow hover:opacity-90 disabled:opacity-50">
+        <button disabled={loading} className="inline-flex items-center justify-center rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow hover:opacity-90 disabled:opacity-50 hover-glow neon-focus">
           {loading ? "Sending..." : "Send"}
         </button>
         {status && <p className="text-sm text-muted-foreground">{status}</p>}

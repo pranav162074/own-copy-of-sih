@@ -60,41 +60,41 @@
   }
 
   .dark {
-    --background: 222.2 84% 4.9%;
+    --background: 220 20% 3%;
     --foreground: 210 40% 98%;
 
-    --card: 222.2 84% 4.9%;
+    --card: 220 20% 6%;
     --card-foreground: 210 40% 98%;
 
-    --popover: 222.2 84% 4.9%;
+    --popover: 220 20% 6%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 210 40% 98%;
-    --primary-foreground: 222 78% 28%;
+    --primary: 235 90% 60%; /* electric blue */
+    --primary-foreground: 220 20% 3%;
 
-    --secondary: 24 24% 22%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 280 85% 65%; /* neon violet */
+    --secondary-foreground: 220 20% 3%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 220 15% 12%;
+    --muted-foreground: 215 20% 70%;
 
-    --accent: 142 71% 35%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 150 80% 45%; /* neon green */
+    --accent-foreground: 220 20% 3%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 8 90% 55%;
+    --destructive-foreground: 220 20% 3%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 222 60% 8%;
+    --border: 220 20% 18%;
+    --input: 220 20% 18%;
+    --ring: 235 90% 60%;
+    --sidebar-background: 220 20% 3%;
     --sidebar-foreground: 210 40% 98%;
-    --sidebar-primary: 210 40% 98%;
-    --sidebar-primary-foreground: 222 78% 28%;
-    --sidebar-accent: 222 50% 12%;
-    --sidebar-accent-foreground: 210 40% 98%;
-    --sidebar-border: 222 50% 12%;
-    --sidebar-ring: 210 40% 98%;
+    --sidebar-primary: 235 90% 60%;
+    --sidebar-primary-foreground: 220 20% 3%;
+    --sidebar-accent: 150 80% 45%;
+    --sidebar-accent-foreground: 220 20% 3%;
+    --sidebar-border: 220 20% 12%;
+    --sidebar-ring: 235 90% 60%;
   }
 }
 
@@ -110,4 +110,17 @@
   .neon-card {
     box-shadow: 0 0 0 1px hsl(var(--border)), 0 0 20px hsl(var(--primary) / 0.15);
   }
+
+  .hover-glow {
+    transition: transform .2s ease, box-shadow .25s ease, background-color .2s ease, color .2s ease;
+  }
+  .hover-glow:hover {
+    box-shadow: 0 0 0 1px hsl(var(--border)), 0 0 28px hsl(var(--accent) / 0.35);
+    transform: translateY(-1px);
+  }
+  .neon-focus:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px hsl(var(--ring)), 0 0 24px hsl(var(--ring) / 0.5);
+  }
+  a, button { transition: color .2s ease, background-color .2s ease, box-shadow .25s ease, transform .2s ease; }
 }
