@@ -1,22 +1,34 @@
 import { KPI } from "@/components/KPI";
 import { ResponsiveContainer, AreaChart, Area, CartesianGrid, XAxis, YAxis, Tooltip } from "recharts";
-
-const trend = Array.from({ length: 24 }, (_, i) => ({ t: i, delay: Math.max(0, 8 + Math.sin(i/3)*2 + (i>12? -1:1)) }))
+import { useMemo, useState } from "react";
 
 export default function Dashboard() {
+  const [optimized, setOptimized] = useState(false);
+  const trend = useMemo(
+    () => Array.from({ length: 24 }, (_, i) => ({ t: i, delay: Math.max(0, (optimized ? 6.5 : 8) + Math.sin(i / 3) * 2 + (i > 12 ? -1 : 1)) })),
+    [optimized]
+  );
+
   return (
     <section className="container py-8 space-y-6">
+      <div className="flex items-center justify-between">
+        <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
+        <button onClick={() => setOptimized((v) => !v)} className="rounded-md border px-3 py-2 text-sm hover:bg-muted">
+          {optimized ? "Show Baseline" : "Apply AI"}
+        </button>
+      </div>
+
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <KPI label="Punctuality" value="92.4%" delta={2.1} color="#34d399" />
-        <KPI label="Avg Delay" value="7.8 min" delta={-12.3} color="#60a5fa" />
-        <KPI label="Throughput" value="+18 tph" delta={4.6} color="#a78bfa" />
-        <KPI label="Utilization" value="73%" delta={1.9} color="#f59e0b" />
+        <KPI label="Punctuality" value={optimized ? "94.5%" : "92.4%"} delta={optimized ? 2.1 : 0} color="#34d399" />
+        <KPI label="Avg Delay" value={optimized ? "6.5 min" : "7.8 min"} delta={optimized ? -16.7 : 0} color="#60a5fa" />
+        <KPI label="Throughput" value={optimized ? "+19 tph" : "+18 tph"} delta={optimized ? 5.6 : 0} color="#a78bfa" />
+        <KPI label="Utilization" value={optimized ? "74%" : "73%"} delta={optimized ? 1.4 : 0} color="#f59e0b" />
       </div>
 
       <div className="rounded-xl border bg-card p-4">
         <div className="flex items-center justify-between mb-2">
           <h3 className="text-sm font-semibold">Average Delay Trend</h3>
-          <div className="text-xs text-muted-foreground">Scenario: Baseline vs Optimized</div>
+          <div className="text-xs text-muted-foreground">Scenario: {optimized ? "AI Optimized" : "Baseline"}</div>
         </div>
         <div className="h-64">
           <ResponsiveContainer width="100%" height="100%">
