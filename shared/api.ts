@@ -10,3 +10,14 @@
 export interface DemoResponse {
   message: string;
 }
+
+export interface ContactRequest {
+  name: string;
+  email: string;
+  message: string;
+}
+
+export interface ContactResponse {
+  status: "ok";
+  receivedAt: string;
+}
