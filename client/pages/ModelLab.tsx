@@ -15,8 +15,22 @@ export default function ModelLab() {
         </div>
       </div>
       <div className="grid gap-4 md:grid-cols-2">
-        <div className="rounded-xl border bg-card p-4"><h3 className="font-semibold">Explainability: SHAP</h3><div className="mt-2 h-40 grid grid-cols-5 gap-2">{Array.from({length:5}).map((_,i)=>(<div key={i} className="rounded-md bg-primary/20" style={{height: `${20+i*10}%`}} />))}</div></div>
-        <div className="rounded-xl border bg-card p-4"><h3 className="font-semibold">Decision Rules</h3><ul className="mt-2 text-sm text-muted-foreground list-disc pl-5 space-y-1"><li>Maintain headway >= safe_threshold</li><li>Precedence to express if total delay reduction > 2m</li><li>Respect maintenance blocks</li></ul></div>
+        <div className="rounded-xl border bg-card p-4">
+          <h3 className="font-semibold">Explainability: SHAP</h3>
+          <div className="mt-2 h-40 grid grid-cols-5 gap-2">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <div key={i} className="rounded-md bg-primary/20" style={{ height: `${20 + i * 10}%` }} />
+            ))}
+          </div>
+        </div>
+        <div className="rounded-xl border bg-card p-4">
+          <h3 className="font-semibold">Decision Rules</h3>
+          <ul className="mt-2 text-sm text-muted-foreground list-disc pl-5 space-y-1">
+            <li>Maintain headway &gt;= safe_threshold</li>
+            <li>Precedence to express if total delay reduction &gt; 2m</li>
+            <li>Respect maintenance blocks</li>
+          </ul>
+        </div>
       </div>
     </section>
   );
