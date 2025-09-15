@@ -14,14 +14,11 @@ export default function Index() {
   const [congestion, setCongestion] = useState(55);
 
   const data = useMemo(() => {
-    // Create a synthetic performance curve based on congestion level
     const points = Array.from({ length: 11 }, (_, i) => i * 10);
     return points.map((x) => {
       const utilization = x;
-      // Throughput curve: rises then falls as congestion increases (reflecting network effects)
       const base = utilization * Math.exp(-utilization / (60 + congestion / 2));
       const normalized = Math.round((base / 60) * 100);
-      // Average delay decreases with better control (higher congestion needs smarter control)
       const delay = Math.max(1, Math.round(120 - normalized));
       return { utilization, throughput: Math.max(0, normalized), delay };
     });
@@ -30,67 +27,72 @@ export default function Index() {
   return (
     <div className="bg-gradient-to-b from-background to-muted/40">
       {/* Hero */}
-      <section className="relative">
-        <div className="absolute inset-x-0 -top-24 -z-10 blur-3xl opacity-30">
-          <div className="mx-auto h-64 w-11/12 rounded-full bg-gradient-to-r from-primary to-accent" />
+      <section className="relative overflow-hidden">
+        <div className="absolute inset-0 -z-10">
+          <div className="absolute -top-24 left-1/2 h-80 w-[1400px] -translate-x-1/2 rounded-full blur-3xl" style={{ background: "radial-gradient(closest-side, hsl(var(--primary)/0.25), transparent)" }} />
         </div>
         <div className="container grid gap-10 py-20 md:grid-cols-2 md:items-center">
           <div>
-            <div className="inline-flex items-center gap-2 rounded-full border bg-background/60 px-3 py-1 text-xs text-muted-foreground backdrop-blur">
-              <span className="h-2 w-2 rounded-full bg-accent" /> Real-time decision support
+            <div className="inline-flex items-center gap-2 rounded-full border bg-background/50 px-3 py-1 text-xs text-muted-foreground backdrop-blur">
+              <span className="h-2 w-2 rounded-full bg-accent" /> AI for Section Control
             </div>
             <h1 className="mt-4 text-4xl font-extrabold tracking-tight sm:text-5xl">
               Orchestrate India’s Rail Network with AI Precision
             </h1>
             <p className="mt-4 text-muted-foreground text-lg max-w-prose">
-              RailFlow AI assists section controllers to maximize throughput and minimize travel time across mixed-priority trains—safely and efficiently.
+              Maximize throughput and minimize delays across mixed-priority trains—safely and explainably.
             </p>
             <div className="mt-6 flex flex-col sm:flex-row gap-3">
-              <Link to="/contact" className="inline-flex items-center justify-center rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow hover:opacity-90">
-                Request a Demo
+              <Link to="/dashboard" className="inline-flex items-center justify-center rounded-md bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground shadow hover:opacity-90">
+                Live Demo
               </Link>
-              <Link to="/features" className="inline-flex items-center justify-center rounded-md border px-5 py-3 text-sm font-semibold hover:bg-muted">
-                Explore Features
+              <Link to="/model-lab" className="inline-flex items-center justify-center rounded-md border px-5 py-3 text-sm font-semibold hover:bg-muted">
+                Upload Data
               </Link>
             </div>
             <ul className="mt-6 grid grid-cols-2 gap-3 text-sm text-muted-foreground max-w-md">
-              <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-primary"/> Adaptive scheduling</li>
-              <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-primary"/> Conflict resolution</li>
-              <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-primary"/> Throughput maximization</li>
-              <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-primary"/> Safety-first recommendations</li>
+              <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-[#60a5fa]"/> Express</li>
+              <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-[#f59e0b]"/> Freight</li>
+              <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-[#34d399]"/> Suburban</li>
+              <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-[#a78bfa]"/> Special</li>
             </ul>
           </div>
-          <div className="rounded-xl border bg-card p-5 shadow-sm">
-            <div className="flex items-center justify-between">
-              <h3 className="text-sm font-semibold">Throughput vs. Network Utilization</h3>
-              <span className="text-xs text-muted-foreground">Interactive model</span>
-            </div>
-            <div className="mt-4 h-56">
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={data} margin={{ left: 0, right: 8, top: 10, bottom: 0 }}>
-                  <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--muted-foreground) / 0.2)" />
-                  <XAxis dataKey="utilization" tickFormatter={(v) => `${v}%`} stroke="hsl(var(--muted-foreground))" fontSize={12} />
-                  <YAxis tickFormatter={(v) => `${v}%`} stroke="hsl(var(--muted-foreground))" fontSize={12} />
-                  <Tooltip contentStyle={{ borderRadius: 8, border: '1px solid hsl(var(--border))' }} />
-                  <Line type="monotone" dataKey="throughput" stroke="hsl(var(--primary))" strokeWidth={2.2} dot={false} />
-                </LineChart>
-              </ResponsiveContainer>
-            </div>
-            <div className="mt-4">
-              <label className="flex items-center justify-between text-xs text-muted-foreground">
-                <span>Congestion sensitivity</span>
-                <span className="font-medium text-foreground">{congestion}%</span>
-              </label>
-              <input
-                type="range"
-                min={10}
-                max={90}
-                value={congestion}
-                onChange={(e) => setCongestion(parseInt(e.target.value))}
-                className="mt-2 w-full accent-[hsl(var(--accent))]"
-                aria-label="Congestion sensitivity"
-              />
-            </div>
+          <div className="rounded-xl border bg-card p-5 shadow-[0_0_20px_hsl(var(--primary)/0.15)]">
+            <SchematicAnimation />
+          </div>
+        </div>
+      </section>
+
+      {/* Interactive model */}
+      <section className="container py-16">
+        <h2 className="text-2xl md:text-3xl font-bold tracking-tight">Throughput vs Utilization</h2>
+        <p className="mt-2 text-muted-foreground max-w-2xl">Interactive curve demonstrates diminishing returns under congestion and the benefit of smarter control.</p>
+        <div className="mt-6 rounded-xl border bg-card p-5">
+          <div className="mt-2 h-56">
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={data} margin={{ left: 0, right: 8, top: 10, bottom: 0 }}>
+                <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--muted-foreground) / 0.2)" />
+                <XAxis dataKey="utilization" tickFormatter={(v) => `${v}%`} stroke="hsl(var(--muted-foreground))" fontSize={12} />
+                <YAxis tickFormatter={(v) => `${v}%`} stroke="hsl(var(--muted-foreground))" fontSize={12} />
+                <Tooltip contentStyle={{ borderRadius: 8, border: '1px solid hsl(var(--border))' }} />
+                <Line type="monotone" dataKey="throughput" stroke="hsl(var(--primary))" strokeWidth={2.2} dot={false} />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+          <div className="mt-4">
+            <label className="flex items-center justify-between text-xs text-muted-foreground">
+              <span>Congestion sensitivity</span>
+              <span className="font-medium text-foreground">{congestion}%</span>
+            </label>
+            <input
+              type="range"
+              min={10}
+              max={90}
+              value={congestion}
+              onChange={(e) => setCongestion(parseInt(e.target.value))}
+              className="mt-2 w-full accent-[hsl(var(--accent))]"
+              aria-label="Congestion sensitivity"
+            />
           </div>
         </div>
       </section>
@@ -108,7 +110,7 @@ export default function Index() {
             { title: "Seamless integrations", desc: "Connects with control office apps and signalling feeds via secure APIs.", icon: "M10 22l10 10 22-22" },
             { title: "Explainable AI", desc: "Transparent rationale for every recommendation to build controller trust.", icon: "M12 52c10-10 30-30 40-40" },
           ].map((f) => (
-            <div key={f.title} className="rounded-xl border bg-card p-5 shadow-sm">
+            <div key={f.title} className="rounded-xl border bg-card p-5 shadow-[0_0_20px_hsl(var(--primary)/0.1)]">
               <div className="flex h-10 w-10 items-center justify-center rounded-md bg-primary/10">
                 <svg viewBox="0 0 64 64" width="22" height="22" className="text-primary" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round"><path d={f.icon}/></svg>
               </div>
@@ -167,6 +169,47 @@ export default function Index() {
           </div>
         </div>
       </section>
+    </div>
+  );
+}
+
+function SchematicAnimation() {
+  return (
+    <div>
+      <div className="flex items-center justify-between">
+        <h3 className="text-sm font-semibold">Section schematic</h3>
+        <span className="text-xs text-muted-foreground">Animated</span>
+      </div>
+      <div className="mt-3">
+        <svg viewBox="0 0 600 220" width="100%" height="200" className="[&_.train]:animate-[move_6s_linear_infinite]">
+          <defs>
+            <linearGradient id="track" x1="0" x2="1">
+              <stop offset="0%" stopColor="hsl(var(--primary))" />
+              <stop offset="100%" stopColor="hsl(var(--accent))" />
+            </linearGradient>
+            <style>{`@keyframes move{0%{transform:translateX(0)}100%{transform:translateX(600px)}}`}</style>
+          </defs>
+          {/* Tracks */}
+          {([40, 100, 160] as const).map((y, i) => (
+            <g key={i}>
+              <line x1="0" y1={y} x2="600" y2={y} stroke="url(#track)" strokeWidth="3" strokeOpacity="0.6" />
+              {[...Array(12)].map((_, j) => (
+                <rect key={j} x={j * 50} y={y - 4} width="30" height="8" fill="hsl(var(--border))" opacity="0.6" />
+              ))}
+            </g>
+          ))}
+          {/* Trains */}
+          <g className="train" style={{ transformBox: "fill-box", transformOrigin: "0 0" }}>
+            <rect x="0" y="32" width="40" height="16" rx="3" fill="#60a5fa" />
+          </g>
+          <g className="train" style={{ animationDelay: "-2s", transformBox: "fill-box", transformOrigin: "0 0" }}>
+            <rect x="-200" y="92" width="36" height="16" rx="3" fill="#f59e0b" />
+          </g>
+          <g className="train" style={{ animationDelay: "-4s", transformBox: "fill-box", transformOrigin: "0 0" }}>
+            <rect x="-380" y="152" width="32" height="16" rx="3" fill="#34d399" />
+          </g>
+        </svg>
+      </div>
     </div>
   );
 }
