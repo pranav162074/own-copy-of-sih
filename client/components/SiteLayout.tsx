@@ -1,4 +1,5 @@
 import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
+import Assistant from "@/components/Assistant";
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 
@@ -64,6 +65,11 @@ export default function SiteLayout() {
           <Logo />
           <nav className="hidden md:flex items-center gap-1">
             <NavItem to="/">Home</NavItem>
+            <NavItem to="/dashboard">Dashboard</NavItem>
+            <NavItem to="/control">Control</NavItem>
+            <NavItem to="/model-lab">Model Lab</NavItem>
+            <NavItem to="/anomalies">Anomalies</NavItem>
+            <NavItem to="/audit">Audit</NavItem>
             <NavItem to="/about">About</NavItem>
             <NavItem to="/features">Features</NavItem>
             <NavItem to="/use-cases">Use Cases</NavItem>
@@ -78,6 +84,8 @@ export default function SiteLayout() {
       <main className="flex-1">
         <Outlet />
       </main>
+
+      <Assistant />
 
       <footer className="border-t bg-muted/40">
         <div className="container py-10 grid gap-8 md:grid-cols-3">
@@ -129,6 +137,11 @@ function MobileNav() {
         <div className="absolute right-0 mt-2 w-44 rounded-md border bg-background shadow-md">
           <nav className="flex flex-col p-1">
             <NavLink onClick={() => setOpen(false)} to="/" className="px-3 py-2 rounded-md hover:bg-muted">Home</NavLink>
+            <NavLink onClick={() => setOpen(false)} to="/dashboard" className="px-3 py-2 rounded-md hover:bg-muted">Dashboard</NavLink>
+            <NavLink onClick={() => setOpen(false)} to="/control" className="px-3 py-2 rounded-md hover:bg-muted">Control</NavLink>
+            <NavLink onClick={() => setOpen(false)} to="/model-lab" className="px-3 py-2 rounded-md hover:bg-muted">Model Lab</NavLink>
+            <NavLink onClick={() => setOpen(false)} to="/anomalies" className="px-3 py-2 rounded-md hover:bg-muted">Anomalies</NavLink>
+            <NavLink onClick={() => setOpen(false)} to="/audit" className="px-3 py-2 rounded-md hover:bg-muted">Audit</NavLink>
             <NavLink onClick={() => setOpen(false)} to="/about" className="px-3 py-2 rounded-md hover:bg-muted">About</NavLink>
             <NavLink onClick={() => setOpen(false)} to="/features" className="px-3 py-2 rounded-md hover:bg-muted">Features</NavLink>
             <NavLink onClick={() => setOpen(false)} to="/use-cases" className="px-3 py-2 rounded-md hover:bg-muted">Use Cases</NavLink>
